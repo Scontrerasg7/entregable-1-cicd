@@ -1,0 +1,30 @@
+name: Mi Primer Workflow con Github Actions
+
+on:
+  push:
+    branches:
+      - main
+  issues:
+  watch:
+
+jobs:
+  imprimir_info:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3 # Este paso clona tu repositorio. No lo modifiques.
+
+      - name: Imprimir Mensaje Personalizado
+        run: |
+          echo "Hola, soy $MY_NAME y este es mi primer workflow!"  
+          echo "La fecha y hora actual es: $(date +"%Y-%m-%d %H:%M:%S")"
+        env:
+          MY_NAME: "Sebastián Contreras" # Quise experimentar con variables de entorno.
+
+      - name: Configurar Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+
+      - name: Ejecutar script Python
+        run: python3 mi_script.py
